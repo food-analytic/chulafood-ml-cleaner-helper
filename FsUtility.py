@@ -36,12 +36,8 @@ def read_summary_data():
 
 def write_summary_data():
     file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'summary.csv')
-    print('before write',global_variables.summary_dict)
     with open(file_path, 'w', newline='', encoding='utf8') as csvfile:
         writer = csv.DictWriter(csvfile, ['class_name', 'clean->trash', 'suspect->trash', 'trash->clean'])
         writer.writeheader()
         for key, value in global_variables.summary_dict.items():
             writer.writerow({ 'class_name': key, 'clean->trash': value['clean->trash'], 'suspect->trash': value['suspect->trash'], 'trash->clean': value['trash->clean'] })
-
-if __name__ == '__main__':
-    print(ROOT_PATH)

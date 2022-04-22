@@ -39,7 +39,6 @@ class DashboardLayout(QVBoxLayout):
             msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             ret = msg_box.exec_()
             if ret == QMessageBox.Ok:
-                print(mode, class_name)
                 self.change_mode(mode)
                 self.change_class(class_name)
     

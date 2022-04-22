@@ -137,7 +137,6 @@ class MainWindow(QMainWindow):
     def load_image_btn(self, sub_path):
         self.clear_image_btn()
         # add new btn
-        print(self.mode_combo_box.currentText())
         mode_path = FsUtility.get_mode_path(self.mode_combo_box.currentText())
         print('Load images from path', os.path.join(mode_path, sub_path))
         img_list = list(filter(lambda item: os.path.splitext(item)[1] in ['.jpg','.jpeg','.png'], os.listdir(os.path.join(mode_path, sub_path))))
