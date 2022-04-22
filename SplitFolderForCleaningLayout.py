@@ -35,7 +35,7 @@ class SplitFolderForCleaning(QVBoxLayout):
             os.rename(os.path.join(global_variables.ROOT_PATH, name), os.path.join(global_variables.ROOT_PATH, 'test', name))
             # create the same class folder in all created folder except "test"
             for name2 in create_folder_names_no_test:
-                os.makedirs(os.path.join(global_variables.ROOT_PATH, name2, name))       
+                os.makedirs(os.path.join(global_variables.ROOT_PATH, name2, name), exist_ok=True)       
         # info user that operation is finished
         msg_box = QMessageBox()
         msg_box.setIcon(QMessageBox.Information)
