@@ -1,6 +1,5 @@
 import os, csv
 import global_variables
-from pathlib import Path
 
 def get_mode_path(mode):
     folder_name = ''
