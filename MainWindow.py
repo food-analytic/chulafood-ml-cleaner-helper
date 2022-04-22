@@ -4,7 +4,8 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QWidget, QHBoxLayout, QScrollArea, QFileDialog, QLineEdit, QComboBox, QMessageBox
 from FlowLayout import FlowLayout
 from InitialSetupWindow import InitialSetupWindow
-from GenerateCleanFolderLayout import GenerateCleanFolderLayout
+from MergeFolderAfterCleaningLayout import MergeFolderAfterCleaningLayout
+from SplitFolderForCleaningLayout import SplitFolderForCleaning
 from DashboardLayout import DashboardLayout
 import global_variables
 import FsUtility
@@ -75,13 +76,21 @@ class MainWindow(QMainWindow):
         # init image_button_scroll state
         self.image_button_scroll.hide()
 
-        # generate_clean_folder
-        self.generate_clean_folder_layout = GenerateCleanFolderLayout()
-        self.generate_clean_folder_widget = QWidget()
-        self.generate_clean_folder_widget.setLayout(self.generate_clean_folder_layout)
-        self.main_layout.addWidget(self.generate_clean_folder_widget)
-        # init generate_clean_folder_layout
-        self.generate_clean_folder_widget.hide()
+        # merge_folder_after_cleaning
+        self.merge_folder_after_cleaning_layout = MergeFolderAfterCleaningLayout()
+        self.merge_folder_after_cleaning_widget = QWidget()
+        self.merge_folder_after_cleaning_widget.setLayout(self.merge_folder_after_cleaning_layout)
+        self.main_layout.addWidget(self.merge_folder_after_cleaning_widget)
+        # init merge_folder_after_cleaning_layout
+        self.merge_folder_after_cleaning_widget.hide()
+
+        # split_folder_for_cleaning
+        self.split_folder_for_cleaning_layout = SplitFolderForCleaning()
+        self.split_folder_for_cleaning_widget = QWidget()
+        self.split_folder_for_cleaning_widget.setLayout(self.split_folder_for_cleaning_layout)
+        self.main_layout.addWidget(self.split_folder_for_cleaning_widget)
+        # init split_folder_for_cleaning_layout
+        self.split_folder_for_cleaning_widget.hide()
 
         # dashboard
         self.dashboard_layout = DashboardLayout(change_mode=self.change_mode, change_class=self.change_class)
@@ -103,17 +112,22 @@ class MainWindow(QMainWindow):
         print(f'Load mode "{mode}"')
         if mode == 'dashboard':
             self.image_button_scroll.hide()
-            self.generate_clean_folder_widget.hide()
+            self.merge_folder_after_cleaning_widget.hide()
             self.dashboard_widget.show()
             self.clear_image_btn()
             self.dashboard_layout.load_table_data()
-        elif mode == 'generate_clean_folder':
+        elif mode == 'merge_folder_after_cleaning':
             self.image_button_scroll.hide()
-            self.generate_clean_folder_widget.show()
+            self.merge_folder_after_cleaning_widget.show()
             self.dashboard_widget.hide()
             self.clear_image_btn()
+        elif mode == 'split_folder_for_cleaning':
+            self.image_button_scroll.hide()
+            self.merge_folder_after_cleaning_widget.hide()
+            self.dashboard_widget.hide()
+            self.split_folder_for_cleaning_widget.show()
         else:
-            self.generate_clean_folder_widget.hide()
+            self.merge_folder_after_cleaning_widget.hide()
             self.image_button_scroll.show()
             self.dashboard_widget.hide()
             self.reset_class_combo_box()
@@ -233,6 +247,8 @@ def main():
     main_window = MainWindow()
     initial_setup_window = InitialSetupWindow(main_window.dashboard_layout)
     initial_setup_window.main_window = main_window
+    # update label in SplitFolderForCleaningLayout when click at submit btn in InitialSetupWindow
+    initial_setup_window.confirm_btn.clicked.connect(lambda: main_window.split_folder_for_cleaning_layout.split_folder_target_label.setText(global_variables.ROOT_PATH))
     app.exec()
 
 if __name__ == '__main__':

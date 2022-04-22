@@ -6,7 +6,7 @@ def init_variables():
     TARGET_TRAIN_SET_SIZE = 20
     DEFAULT_MAIN_WINDOW_SIZE = (1200, 600)
     DEFAULT_IMAGE_BUTTON_SIZE = (300, 300)
-    MODES = ['dashboard', 'prepare_train_set', 'validate_suspect_set', 'validate_clean_set', 'validate_trash_set', 'generate_clean_folder']
+    MODES = ['dashboard', 'prepare_train_set', 'validate_suspect_set', 'validate_clean_set', 'validate_trash_set', 'merge_folder_after_cleaning', 'split_folder_for_cleaning']
     current_mode = MODES[0]
     summary_dict = {}
     mode_description = {
@@ -15,5 +15,6 @@ def init_variables():
         'validate_suspect_set': 'Submit to move images from "suspect_set" to "trash_set".',
         'validate_clean_set': 'Submit to move images from "clean_set" to "trash_set".',
         'validate_trash_set': 'Submit to move images from "trash_set" to "clean_set".',
-        'generate_clean_folder': 'Copy all images from "clean_set" and "suspect_set" to specific path. Should be used after finish cleaning.'
+        'merge_folder_after_cleaning': 'Copy all images from "clean_set" and "suspect_set" to specific path. Should be used after finish cleaning.',
+        'split_folder_for_cleaning': 'Split folder into 5 specific folders for cleaning workflow. The folder names are "clean", "suspected", "test", "train", "trash". '
     }

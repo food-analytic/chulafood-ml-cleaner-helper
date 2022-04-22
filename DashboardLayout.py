@@ -44,6 +44,15 @@ class DashboardLayout(QVBoxLayout):
     
     def load_table_data(self):
         self.table_data.clear()
+        if not self.check_table_data_condition():            
+            # info user that directory structure is wrong
+            msg_box = QMessageBox()
+            msg_box.setIcon(QMessageBox.Information)
+            msg_box.setWindowTitle('Something wrong with your target directory.')
+            msg_box.setText('The current directory format does not supported. You can use "split_folder_for_cleaning" mode to update the structure.')
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec()
+            return
         for column_idx, column_item in enumerate(self.column_name):
             class_list = os.listdir(os.path.join(global_variables.ROOT_PATH, column_item))
             for item in class_list:
@@ -58,3 +67,9 @@ class DashboardLayout(QVBoxLayout):
             self.table.setItem(key_idx, 0, QTableWidgetItem(str(key)))
             for value_item_idx, value_item in enumerate(value):
                 self.table.setItem(key_idx, value_item_idx+1, QTableWidgetItem(str(value_item)))
+    
+    def check_table_data_condition(self):
+        for column_item in self.column_name:
+            if not os.path.exists(os.path.join(global_variables.ROOT_PATH, column_item)):
+                return False
+        return True
