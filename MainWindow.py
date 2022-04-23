@@ -204,6 +204,7 @@ class MainWindow(QMainWindow):
         if next_idx < self.class_combo_box.count():
             self.class_combo_box.setCurrentIndex(next_idx)
         else:
+            self.class_combo_box.setCurrentIndex(0)
             self.class_combo_box.setCurrentIndex(self.class_combo_box.count() - 1)
         self.image_button_scroll.verticalScrollBar().setValue(self.image_button_scroll.verticalScrollBar().minimum())
 
