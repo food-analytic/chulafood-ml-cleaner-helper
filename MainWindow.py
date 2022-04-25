@@ -111,25 +111,29 @@ class MainWindow(QMainWindow):
     def load_mode(self, mode):
         print(f'Load mode "{mode}"')
         if mode == 'dashboard':
+            self.clear_image_btn()
             self.image_button_scroll.hide()
             self.merge_folder_after_cleaning_widget.hide()
+            self.split_folder_for_cleaning_widget.hide()
             self.dashboard_widget.show()
-            self.clear_image_btn()
             self.dashboard_layout.load_table_data()
         elif mode == 'merge_folder_after_cleaning':
-            self.image_button_scroll.hide()
-            self.merge_folder_after_cleaning_widget.show()
-            self.dashboard_widget.hide()
             self.clear_image_btn()
+            self.image_button_scroll.hide()
+            self.dashboard_widget.hide()
+            self.split_folder_for_cleaning_widget.hide()
+            self.merge_folder_after_cleaning_widget.show()
         elif mode == 'split_folder_for_cleaning':
+            self.clear_image_btn()
             self.image_button_scroll.hide()
             self.merge_folder_after_cleaning_widget.hide()
             self.dashboard_widget.hide()
             self.split_folder_for_cleaning_widget.show()
         else:
             self.merge_folder_after_cleaning_widget.hide()
-            self.image_button_scroll.show()
             self.dashboard_widget.hide()
+            self.split_folder_for_cleaning_widget.hide()
+            self.image_button_scroll.show()
             self.reset_class_combo_box()
             self.class_combo_box.addItems(os.listdir(FsUtility.get_mode_path(mode)))
 
